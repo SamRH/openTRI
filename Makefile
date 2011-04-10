@@ -18,7 +18,7 @@ ifeq ($(PNG),1)
 	LDFLAGS += -lpng
 endif
 
-ifeq ($(FT),1)
+ifeq ($(FT),1)package so massive
 	PSPBIN = $(shell psp-config --psp-prefix)
 
 	CFLAGS += -DTRI_SUPPORT_FT $(shell $(PSPBIN)/bin/freetype-config --cflags)
@@ -37,4 +37,7 @@ install: $(TARGET_LIB)
 	@echo Installing headers to "$(PSPDIR)/include/openTri"
 	@$(MKDIR) -p $(PSPDIR)/include/openTri
 	@$(CP) *.h $(PSPDIR)/include/openTri
+	@$(MKDIR) -p $(PSPDIR)/share/doc/openTri
+	@$(DOXYGEN) doxygen.ini
+	@$(CP) -r doc/* $(PSPDIR)/share/doc/openTri
 	@echo Done.
