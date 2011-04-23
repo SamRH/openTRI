@@ -37,6 +37,11 @@ install: $(TARGET_LIB)
 	@echo Installing headers to "$(PSPDIR)/include/openTri"
 	@$(MKDIR) -p $(PSPDIR)/include/openTri
 	@$(CP) *.h $(PSPDIR)/include/openTri
+	@echo Installing headers to "$(PSPDIR)/include/streams"
+	@$(MKDIR) -p $(PSPDIR)/include/streams
+	@$(CP) streams/*.h $(PSPDIR)/include/streams
+	@$(CP) streams/*.inc $(PSPDIR)/include/streams
+	@echo Installing documentation to "$(PSPDIR)/share/doc/openTri"
 	@$(MKDIR) -p $(PSPDIR)/share/doc/openTri
 	@$(DOXYGEN) doxygen.ini
 	@$(CP) -r doc/* $(PSPDIR)/share/doc/openTri
