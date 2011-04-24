@@ -18,7 +18,7 @@ ifeq ($(PNG),1)
 	LDFLAGS += -lpng
 endif
 
-ifeq ($(FT),1)package so massive
+ifeq ($(FT),1)
 	PSPBIN = $(shell psp-config --psp-prefix)
 
 	CFLAGS += -DTRI_SUPPORT_FT $(shell $(PSPBIN)/bin/freetype-config --cflags)
