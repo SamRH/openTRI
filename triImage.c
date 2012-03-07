@@ -550,7 +550,7 @@ static triChar* _triImageLoadPngStream( stream* s, triImage *img )
 	info_ptr = png_create_info_struct(png_ptr);
 	if (info_ptr == NULL)
 	{
-		png_destroy_read_struct(&png_ptr, png_infopp_NULL, png_infopp_NULL);
+		png_destroy_read_struct(&png_ptr, (png_infopp) NULL, (png_infopp) NULL);
 		return("png_create_info_struct failed.");
 	}
 	
@@ -559,7 +559,7 @@ static triChar* _triImageLoadPngStream( stream* s, triImage *img )
 	png_read_info(png_ptr, info_ptr);
 	png_set_strip_16(png_ptr);
 	png_set_packing(png_ptr);
-	png_get_IHDR(png_ptr, info_ptr, &width, &height, &bit_depth, &color_type, &interlace_type, int_p_NULL, int_p_NULL);
+	png_get_IHDR(png_ptr, info_ptr, &width, &height, &bit_depth, &color_type, &interlace_type, NULL, NULL);
 	
 	triS32 passes = 1;
 	if (interlace_type)
@@ -576,7 +576,7 @@ static triChar* _triImageLoadPngStream( stream* s, triImage *img )
 			img->palformat = IMG_FORMAT_8888;
 			if (img->palette==0)
 			{
-				png_destroy_read_struct(&png_ptr, png_infopp_NULL, png_infopp_NULL);
+				png_destroy_read_struct(&png_ptr, (png_infopp) NULL, (png_infopp) NULL);
 				return("malloc failed on palette.");
 			}
 			for (i=0;i<256;i++)
@@ -590,7 +590,7 @@ static triChar* _triImageLoadPngStream( stream* s, triImage *img )
 			img->palformat = IMG_FORMAT_8888;
 			if (img->palette==0)
 			{
-				png_destroy_read_struct(&png_ptr, png_infopp_NULL, png_infopp_NULL);
+				png_destroy_read_struct(&png_ptr, (png_infopp) NULL, (png_infopp) NULL);
 				return("malloc failed on palette.");
 			}
 			
@@ -627,7 +627,7 @@ static triChar* _triImageLoadPngStream( stream* s, triImage *img )
 			break;
 	
 		default:
-			png_destroy_read_struct(&png_ptr, png_infopp_NULL, png_infopp_NULL);
+			png_destroy_read_struct(&png_ptr, (png_infopp) NULL, (png_infopp) NULL);
 			return("Unknown color type.");
 	}
 
@@ -643,7 +643,7 @@ static triChar* _triImageLoadPngStream( stream* s, triImage *img )
 	img->data = triMalloc(img->size);
 	if (img->data==0)
 	{
-		png_destroy_read_struct(&png_ptr, png_infopp_NULL, png_infopp_NULL);
+		png_destroy_read_struct(&png_ptr, (png_infopp) NULL, (png_infopp) NULL);
 		return("malloc failed on img->data.");
 	}
 	
@@ -652,13 +652,13 @@ static triChar* _triImageLoadPngStream( stream* s, triImage *img )
 		triU8* dst = (triU8*)img->data;
 		for (y = 0; y < height; y++)
 		{
-			png_read_row(png_ptr, (triU8*)dst, png_bytep_NULL);
+			png_read_row(png_ptr, (triU8*)dst, (png_bytep) NULL);
 			dst += (img->stride)*(img->bits>>3);
 		}
 	}
 
 //	png_read_end(png_ptr, info_ptr);
-	png_destroy_read_struct(&png_ptr, &info_ptr, png_infopp_NULL);
+	png_destroy_read_struct(&png_ptr, &info_ptr, (png_infopp) NULL);
 	strncpy( img->filename, stream_name( s ), 64 );
 	return(0);
 }
